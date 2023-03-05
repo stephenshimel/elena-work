@@ -1,50 +1,35 @@
 import React, { useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
+import SalaryTransfer from "./components/SalaryTransfer";
+import Header from "./components/Header";
+import Commission from "./components/Commission";
 
 const App = () => {
-	const [result, setResult] = useState(0);
-	const [resultType, setResultType] = useState("");
+	const [activeIndex, setActiveIndex] = useState<number>(0);
 
-	const superRate = 0.105;
-	const handleOnSubmit = (e: any) => {
-		e.preventDefault();
-		if (e.target[1].value === "package") {
-			setResultType("base");
-			setResult(e.target[0].value / (1 + superRate));
-		} else {
-			setResultType("package");
-			setResult(e.target[0].value * (1 + superRate));
-		}
-	};
+	const items = [
+		{
+			label: "salary transfer",
+			name: "salaryTransfer",
+			component: <SalaryTransfer />,
+		},
+		{ label: "commission", name: "commission", component: <Commission /> },
+	];
 	return (
 		<div className='App'>
 			<header className='App-header'>
 				<img src={logo} className='App-logo' alt='logo' />
-				<form onSubmit={handleOnSubmit}>
-					<div>
-						<input type='number' />
-					</div>
-					<div>
-						<select name='salaryType' id='salaryType'>
-							<option value='base'>base salary</option>
-							<option value='package'>package</option>
-						</select>
-					</div>
-					<br />
 
-					<div>
-						<input type='submit' />
-					</div>
-					<br />
-					<br />
-
-					<div>
-						<p>
-							The {resultType} salary is {result}
-						</p>
-					</div>
-				</form>
+				<Header
+					items={items.map(item => ({
+						label: item.label,
+						name: item.name,
+					}))}
+					activeIndex={activeIndex}
+					setActiveIndex={setActiveIndex}
+				/>
+				{items[activeIndex]?.component}
 			</header>
 		</div>
 	);

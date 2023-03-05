@@ -19,9 +19,10 @@ const SalaryTransfer = () => {
 		<div>
 			<form onSubmit={handleOnSubmit}>
 				<div>
-					<input type='number' />
+					<input type='number' placeholder='input salary here' />
 				</div>
 				<div>
+					this is{" "}
 					<select name='salaryType' id='salaryType'>
 						<option value='base'>base salary</option>
 						<option value='package'>package</option>
@@ -33,7 +34,7 @@ const SalaryTransfer = () => {
 
 				<div>
 					<p>
-						The {resultType} salary is {result}
+						The {resultType} salary is A${result.toFixed(2)}
 					</p>
 				</div>
 			</form>
